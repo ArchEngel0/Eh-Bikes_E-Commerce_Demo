@@ -12,6 +12,41 @@
     <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
   <% end %>
 
+  <div>
+    <%= f.label :name %><br />
+    <%= f.text_field :name, autofocus: true, autocomplete: "name" %>
+  </div>
+
+  <%# address_line_one %>
+  <div>
+    <%= f.label :address_line_one %><br />
+    <%= f.text_field :address_line_one, autofocus: true, autocomplete: "address_line_one" %>
+  </div>
+
+  <div>
+    <%= f.label :address_line_two %><br />
+    <%= f.text_field :address_line_two, autofocus: true, autocomplete: "address_line_two" %>
+  </div>
+
+  <%# admin boolean checkbox %>
+  <div>
+    <%= f.label :admin %><br />
+    <%= f.check_box :admin, autofocus: true, autocomplete: "admin" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :password %>
+    <% if @minimum_password_length %>
+    <em>(<%= @minimum_password_length %> characters minimum)</em>
+    <% end %><br />
+    <%= f.password_field :password, autocomplete: "new-password" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :password_confirmation %><br />
+    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+  </div>
+
   <div class="field">
     <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
     <%= f.password_field :password, autocomplete: "new-password" %>
