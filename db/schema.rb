@@ -10,7 +10,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_11_29_184734) do
+ActiveRecord::Schema[7.1].define(version: 2023_11_29_192408) do
+  create_table "product_price_histories", force: :cascade do |t|
+    t.integer "product_id", null: false
+    t.decimal "price"
+    t.date "effective_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["product_id"], name: "index_product_price_histories_on_product_id"
+  end
+
+  create_table "products", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.string "image"
+    t.boolean "sale"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "provinces", force: :cascade do |t|
     t.string "name"
     t.decimal "gst"
@@ -47,6 +65,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_29_184734) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "product_price_histories", "products"
   add_foreign_key "user_provinces", "provinces"
   add_foreign_key "user_provinces", "users"
   add_foreign_key "users", "provinces"

@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Product price histories</h1>
+
+<div id="product_price_histories">
+  <% @product_price_histories.each do |product_price_history| %>
+    <%= render product_price_history %>
+    <p>
+      <%= link_to "Show this product price history", product_price_history %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New product price history", new_product_price_history_path %>
