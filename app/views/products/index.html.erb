@@ -2,6 +2,11 @@
 
 <h1>Products</h1>
 
+<% if current_user && current_user.admin? %>
+<%= link_to "New product", new_product_path %>
+<br><br>
+<% end %>
+
 <div id="products">
   <% @products.each do |product| %>
     <%= render product %>
@@ -11,6 +16,6 @@
   <% end %>
 </div>
 
-<% if current_user && current_user.admin? %>
-<%= link_to "New product", new_product_path %>
-<% end %>
+<%= paginate @products %>
+
+
