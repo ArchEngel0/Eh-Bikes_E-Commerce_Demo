@@ -24,6 +24,12 @@
     <%= f.text_field :address_line_two, autofocus: true, autocomplete: "address-line2" %>
   </div>
 
+  <%# Provinces %>
+  <div>
+  <%= f.label :province_id %><br />
+  <%= f.collection_select :province_id, Province.all, :id, :name, prompt: "Select Province" %>
+</div>
+
   <%# admin boolean checkbox %>
   <div>
     <%= f.label :admin %><br />
