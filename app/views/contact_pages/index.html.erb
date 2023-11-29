@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Contact pages</h1>
+
+<div id="contact_pages">
+  <% @contact_pages.each do |contact_page| %>
+    <%= render contact_page %>
+    <p>
+      <%= link_to "Show this contact page", contact_page %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New contact page", new_contact_page_path %>
