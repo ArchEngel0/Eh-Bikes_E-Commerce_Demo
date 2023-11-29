@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :categories
+  resources :models
   resources :product_price_histories
   resources :products
   devise_for :users
