@@ -1,0 +1,11 @@
+<h1>Edit About Page</h1>
+
+<%= form_with(model: @about_page, url: about_page_path, method: :patch) do |form| %>
+  <%= form.label :title %>
+  <%= form.text_field :title %>
+
+  <%= form.label :content %>
+  <%= form.text_area :content %>
+
+  <%= form.submit 'Update' %>
+<% end %>

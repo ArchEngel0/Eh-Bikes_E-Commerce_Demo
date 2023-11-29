@@ -1,8 +1,10 @@
 Rails.application.routes.draw do
+  resources :contact_pages
   resources :categories
   resources :models
   resources :product_price_histories
   resources :products
+  resource :about_page, only: [:show, :edit, :update]
   devise_for :users
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
@@ -13,4 +15,6 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "posts#index"
   root to: "products#index"
+
+  get '/about', to: 'pages#about'
 end
