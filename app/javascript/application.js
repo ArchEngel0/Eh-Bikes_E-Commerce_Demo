@@ -6,3 +6,6 @@ import "jquery";
 import "jquery_ujs";
 import "popper";
 import "bootstrap";
+
+//= require jquery
+//= require jquery_ujs
