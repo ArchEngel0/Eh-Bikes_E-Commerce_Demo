@@ -31,6 +31,11 @@
     <%= form.check_box :sale %>
   </div>
 
+  <div class="field">
+    <%= form.label :category_id %>
+    <%= form.collection_select :category_id, Category.all, :id, :name, prompt: "Select a category" %>
+  </div>
+
   <div>
     <%= form.submit %>
   </div>

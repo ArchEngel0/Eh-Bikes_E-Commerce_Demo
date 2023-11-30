@@ -1,6 +1,23 @@
 <p style="color: green"><%= notice %></p>
 
-<%= render @product %>
+<h2><%= @product.name %></h2>
+<p><%= @product.description %></p>
+<p><%= @product.image %></p>
+<p>
+  <% if @product.sale %>
+    <strong>On Sale!</strong>
+  <% end %>
+</p>
+
+<%# if product has category %>
+<% if @product.categories.any? %>
+  <p>
+    <%# product categories %>
+    Category: <% @product.categories.each do |category| %>
+      <%= link_to category.name, category %>
+    <% end %>
+  </p>
+<% end %>
 
 <div>
   <% if current_user && current_user.admin? %>

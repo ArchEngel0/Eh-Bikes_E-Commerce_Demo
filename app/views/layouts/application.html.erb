@@ -22,12 +22,14 @@
     <% if current_user && current_user.admin? %>
         <%= link_to "Edit About Page", edit_about_page_path(AboutPage.first) %>
         <%= link_to "Edit Contact Page", edit_contact_page_path(ContactPage.first) %>
+        <%= link_to "Edit Categories", categories_path %>
     <% end %>
     </div>
     <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>
     <%= yield %>
   </body>
+  <br><br>
   <footer>
   <a href="<%= about_page_path %>">About</a>
       <% first_contact_page = ContactPage.first %>
