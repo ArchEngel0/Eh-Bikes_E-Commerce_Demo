@@ -1,5 +1,5 @@
 class ContactPagesController < ApplicationController
-  before_action :set_contact_page, only: %i[ show edit update destroy ]
+  before_action :set_contact_page, only: %i[show edit update destroy]
 
   # GET /contact_pages or /contact_pages.json
   def index
@@ -7,8 +7,7 @@ class ContactPagesController < ApplicationController
   end
 
   # GET /contact_pages/1 or /contact_pages/1.json
-  def show
-  end
+  def show; end
 
   # GET /contact_pages/new
   def new
@@ -16,34 +15,25 @@ class ContactPagesController < ApplicationController
   end
 
   # GET /contact_pages/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /contact_pages or /contact_pages.json
   def create
-    @contact_page = ContactPage.new(contact_page_params)
+    @contact_page = build_contact_page(contact_page_params)
 
-    respond_to do |format|
-      if @contact_page.save
-        format.html { redirect_to contact_page_url(@contact_page), notice: "Contact page was successfully created." }
-        format.json { render :show, status: :created, location: @contact_page }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @contact_page.errors, status: :unprocessable_entity }
-      end
+    if save_contact_page(@contact_page)
+      redirect_to_contact_page(@contact_page, "Contact page was successfully created.")
+    else
+      render_new_contact_page(@contact_page)
     end
   end
 
   # PATCH/PUT /contact_pages/1 or /contact_pages/1.json
   def update
-    respond_to do |format|
-      if @contact_page.update(contact_page_params)
-        format.html { redirect_to contact_page_url(@contact_page), notice: "Contact page was successfully updated." }
-        format.json { render :show, status: :ok, location: @contact_page }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @contact_page.errors, status: :unprocessable_entity }
-      end
+    if update_contact_page(contact_page_params)
+      redirect_to_contact_page(@contact_page, "Contact page was successfully updated.")
+    else
+      render_edit_contact_page(@contact_page)
     end
   end
 
@@ -52,19 +42,46 @@ class ContactPagesController < ApplicationController
     @contact_page.destroy!
 
     respond_to do |format|
-      format.html { redirect_to contact_pages_url, notice: "Contact page was successfully destroyed." }
+      format.html do
+        redirect_to contact_pages_url, notice: "Contact page was successfully destroyed."
+      end
       format.json { head :no_content }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_contact_page
-      @contact_page = ContactPage.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def contact_page_params
-      params.require(:contact_page).permit(:title, :content)
-    end
+  def build_contact_page(contact_page_params)
+    ContactPage.new(contact_page_params)
+  end
+
+  def save_contact_page(contact_page)
+    contact_page.save
+  end
+
+  def redirect_to_contact_page(contact_page, notice)
+    redirect_to contact_page_url(contact_page), notice:
+  end
+
+  def render_new_contact_page(_contact_page)
+    render :new, status: :unprocessable_entity
+  end
+
+  def update_contact_page(contact_page_params)
+    @contact_page.update(contact_page_params)
+  end
+
+  def render_edit_contact_page(_contact_page)
+    render :edit, status: :unprocessable_entity
+  end
+
+  # Use callbacks to share common setup or constraints between actions.
+  def set_contact_page
+    @contact_page = ContactPage.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def contact_page_params
+    params.require(:contact_page).permit(:title, :content)
+  end
 end

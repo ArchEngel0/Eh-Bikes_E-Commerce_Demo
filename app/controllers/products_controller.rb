@@ -20,18 +20,12 @@ class ProductsController < ApplicationController
   # POST /products or /products.json
   def create
     @product = Product.new(product_params)
-    @product_category = @product.product_categories.first_or_initialize
-    @product_category.category_id = params[:product][:category_id]
-
+    set_product_category
     respond_to do |format|
       if @product.save && @product_category.save
-        format.html do
-          redirect_to product_url(@product), notice: "Product was successfully created."
-        end
-        format.json { render :show, status: :created, location: @product }
+        format_on_successful_save(format)
       else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @product.errors, status: :unprocessable_entity }
+        format_on_failed_save(format)
       end
     end
   end
@@ -39,18 +33,12 @@ class ProductsController < ApplicationController
   # PATCH/PUT /products/1 or /products/1.json
   def update
     @product = Product.find(params[:id])
-    @product_category = @product.product_categories.first_or_initialize
-    @product_category.category_id = params[:product][:category_id]
-
+    set_product_category
     respond_to do |format|
       if @product.update(product_params) && @product_category.save
-        format.html do
-          redirect_to product_url(@product), notice: "Product was successfully updated."
-        end
-        format.json { render :show, status: :ok, location: @product }
+        format_on_successful_save(format)
       else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @product.errors, status: :unprocessable_entity }
+        format_on_failed_save(format)
       end
     end
   end
@@ -66,6 +54,23 @@ class ProductsController < ApplicationController
   end
 
   private
+
+  def set_product_category
+    @product_category = @product.product_categories.first_or_initialize
+    @product_category.category_id = params[:product][:category_id]
+  end
+
+  def format_on_successful_save(format)
+    format.html do
+      redirect_to product_url(@product), notice: "Product was successfully created."
+    end
+    format.json { render :show, status: :created, location: @product }
+  end
+
+  def format_on_failed_save
+    format.html { render :new, status: :unprocessable_entity }
+    format.json { render json: @product.errors, status: :unprocessable_entity }
+  end
 
   # Use callbacks to share common setup or constraints between actions.
   def set_product
