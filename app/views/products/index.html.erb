@@ -9,8 +9,16 @@
 
 <div id="search-form">
   <%= form_tag(products_path, method: :get) do %>
+      <label>
+      <%= check_box_tag :on_sale, 1, params[:on_sale] %>
+      On Sale
+    </label>
+    <label>
+      <%= check_box_tag :new_products, 1, params[:new_products] %>
+      New Products
+    </label>
     <%= select_tag :category, options_for_select(Category.all.map { |c| [c.name, c.id] }, params[:category]), include_blank: "All Categories" %>
-    <%= text_field_tag :search, params[:search], placeholder: "Search by name or description" %>
+    <%= text_field_tag :search, params[:search], placeholder: "Search" %>
     <%= submit_tag "Search" %>
   <% end %>
 </div>

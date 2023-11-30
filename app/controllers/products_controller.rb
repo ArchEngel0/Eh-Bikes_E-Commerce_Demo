@@ -7,6 +7,9 @@ class ProductsController < ApplicationController
 
     apply_category_filter if params[:category].present? && params[:category] != ""
     apply_search_filter if params[:search].present?
+
+    apply_sale_filter
+    apply_new_products_filter
   end
 
   # GET /products/1 or /products/1.json
@@ -69,6 +72,18 @@ class ProductsController < ApplicationController
                                 "%#{search_term}%", "%#{search_term}%")
   end
 
+  def apply_sale_filter
+    return if params[:on_sale].blank?
+
+    @products = @products.where(sale: true)
+  end
+
+  def apply_new_products_filter
+    return if params[:new_products].blank?
+
+    @products = @products.where("created_at >= ?", 3.days.ago)
+  end
+
   def set_product_category
     @product_category = @product.product_categories.first_or_initialize
     @product_category.category_id = params[:product][:category_id]
@@ -81,7 +96,7 @@ class ProductsController < ApplicationController
     format.json { render :show, status: :created, location: @product }
   end
 
-  def format_on_failed_save
+  def format_on_failed_save(format)
     format.html { render :new, status: :unprocessable_entity }
     format.json { render json: @product.errors, status: :unprocessable_entity }
   end
