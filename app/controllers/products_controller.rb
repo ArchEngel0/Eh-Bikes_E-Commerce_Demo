@@ -4,6 +4,9 @@ class ProductsController < ApplicationController
   # GET /products or /products.json
   def index
     @products = Product.page(params[:page]).per(5)
+
+    apply_category_filter if params[:category].present? && params[:category] != ""
+    apply_search_filter if params[:search].present?
   end
 
   # GET /products/1 or /products/1.json
@@ -54,6 +57,17 @@ class ProductsController < ApplicationController
   end
 
   private
+
+  def apply_category_filter
+    category = Category.find(params[:category])
+    @products = @products.joins(:categories).where(categories: { id: category.id })
+  end
+
+  def apply_search_filter
+    search_term = params[:search].downcase
+    @products = @products.where("products.name LIKE ? OR products.description LIKE ?",
+                                "%#{search_term}%", "%#{search_term}%")
+  end
 
   def set_product_category
     @product_category = @product.product_categories.first_or_initialize
