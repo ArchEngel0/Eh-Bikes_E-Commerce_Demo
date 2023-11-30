@@ -20,7 +20,8 @@ class ProductsController < ApplicationController
   # POST /products or /products.json
   def create
     @product = Product.new(product_params)
-    @product_category = ProductCategory.new(category_id: params[:product][:category_id])
+    @product_category = @product.product_categories.first_or_initialize
+    @product_category.category_id = params[:product][:category_id]
 
     respond_to do |format|
       if @product.save && @product_category.save
