@@ -3,5 +3,10 @@
     <strong>Name:</strong>
     <%= category.name %>
   </p>
-
+  <p>
+    <strong>Products:</strong>
+    <% category.products.each do |product| %>
+      <%= link_to product.name, product_path(product) %>
+    <% end %>
+  </p>
 </div>
