@@ -15,7 +15,8 @@ end
     name:        Faker::Vehicle.make_and_model,
     description: Faker::Lorem.paragraph,
     sale:        Faker::Boolean.boolean,
-    category_id: Category.all.sample
+    category_id: Category.all.sample,
+    price:       Faker::Commerce.price(range: 0..1000.0, as_string: true)
   )
   # Assign a random category to the product
   category = Category.all.sample

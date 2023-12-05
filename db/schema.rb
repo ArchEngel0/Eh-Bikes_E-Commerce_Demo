@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_11_29_213321) do
+ActiveRecord::Schema[7.1].define(version: 2023_12_05_182547) do
   create_table "about_pages", force: :cascade do |t|
     t.string "title"
     t.text "content"
@@ -63,6 +63,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_29_213321) do
     t.boolean "sale"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.decimal "price"
   end
 
   create_table "provinces", force: :cascade do |t|

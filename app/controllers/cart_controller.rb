@@ -1,6 +1,7 @@
 class CartController < ApplicationController
   def show
     @cart = session[:cart] || {}
+    puts "Cart: " + @cart.to_s; # debug
   end
 
   def add
@@ -24,39 +25,24 @@ class CartController < ApplicationController
 
   def remove
     product = Product.find(params[:product_id])
-    session[:cart].delete(product.id)
+    remove_from_cart(product)
     redirect_to cart_path, notice: "Product removed from cart."
   end
 
   private
 
   def decrement_quantity(product)
-    return unless cart_item_present?(product) && cart_item_quantity_positive?(product)
-
-    session[:cart][product.id] -= 1
+    session[:cart][product.id.to_s] -= 1
+    session[:cart][product.id.to_s] = 0 if (session[:cart][product.id.to_s]).negative?
   end
 
   def increment_quantity(product)
-    session[:cart][product.id] ||= 0
-    session[:cart][product.id] = calculate_new_quantity(product)
-  end
-
-  def calculate_new_quantity(product)
-    current_quantity = session[:cart][product.id]
-    new_quantity = current_quantity + 1
-    session[:cart][product.id] = new_quantity
-    new_quantity
+    session[:cart] ||= {}
+    session[:cart][product.id.to_s] ||= 0
+    session[:cart][product.id.to_s] += 1
   end
 
   def remove_from_cart(product)
-    session[:cart].delete(product.id)
-  end
-
-  def cart_item_present?(product)
-    session[:cart][product.id].present?
-  end
-
-  def cart_item_quantity_positive?(product)
-    session[:cart][product.id].positive?
+    session[:cart].delete(product.id.to_s)
   end
 end

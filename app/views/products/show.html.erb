@@ -8,6 +8,10 @@
     <strong>On Sale!</strong>
   <% end %>
 </p>
+<p>
+  <%# price %>
+  Price: <%= number_to_currency @product.price %>
+</p>
 
 <%# if product has category %>
 <% if @product.categories.any? %>
