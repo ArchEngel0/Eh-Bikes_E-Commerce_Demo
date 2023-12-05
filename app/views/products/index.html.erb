@@ -37,6 +37,15 @@
                 <strong>On Sale!</strong>
               <% end %>
             </p>
+            <p>
+              <%# price %>
+              Price: <%= number_to_currency product.price %>
+            </p>
+            <p>
+              <%= form_tag add_to_cart_path(product), method: :post do %>
+                <%= submit_tag 'Add to Cart' %>
+              <% end %>
+            </p>
             <% if product.categories.any? %>
             <p>
               <%# product categories %>

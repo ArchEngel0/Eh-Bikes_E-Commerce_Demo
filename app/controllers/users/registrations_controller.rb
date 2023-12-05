@@ -49,7 +49,9 @@ module Users
 
     # If you have extra params to permit, append them to the sanitizer.
     def configure_sign_up_params
-      devise_parameter_sanitizer.permit(:sign_up, keys: [:province_id])
+      devise_parameter_sanitizer.permit(:sign_up,
+                                        keys: %i[email password password_confirmation name address_line_one address_line_two province_id
+                                                 admin])
     end
 
     def build_resource(hash = {})
