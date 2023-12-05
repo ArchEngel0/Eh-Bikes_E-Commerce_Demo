@@ -7,6 +7,9 @@ Rails.application.routes.draw do
   resources :products
   resource :about_page, only: [:show, :edit, :update]
   devise_for :users
+  resources :users do
+    resources :orders, only: [:create, :index]
+  end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
@@ -27,4 +30,5 @@ Rails.application.routes.draw do
   delete '/cart/remove/:product_id', to: 'cart#remove', as: 'remove_from_cart'
 
   get 'checkout/index'
+  get '/all_users', to: 'all_users#index', as: 'all_users'
 end

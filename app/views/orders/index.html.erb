@@ -1,0 +1,9 @@
+<h1>Your Orders</h1>
+<% @orders.each do |order| %>
+  <p>Product: <%= order.product %></p>
+  <p>Quantity: <%= order.quantity %></p>
+  <p>Price: <%= number_to_currency(order.price) %></p>
+  <p>Tax: <%= number_to_currency(order.tax) %></p>
+  <p>Total: <%= number_to_currency(order.total) %></p>
+  <hr>
+<% end %>

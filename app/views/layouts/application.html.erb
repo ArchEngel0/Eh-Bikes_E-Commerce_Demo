@@ -23,8 +23,12 @@
         <%= link_to "Edit About Page", edit_about_page_path(AboutPage.first) %>
         <%= link_to "Edit Contact Page", edit_contact_page_path(ContactPage.first) %>
         <%= link_to "Edit Categories", categories_path %>
+        <%= link_to "View All Users", all_users_path %>
     <% end %>
     <%= link_to "Cart", cart_path %>
+    <% if user_signed_in? %>
+      <%= link_to "Orders", user_orders_path(current_user) %>
+    <% end %>
     </div>
     <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>

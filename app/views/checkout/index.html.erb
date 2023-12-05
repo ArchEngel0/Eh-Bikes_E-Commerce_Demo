@@ -26,22 +26,41 @@
       <% province = Province.find(current_user.province_id) %>
       <tr>
         <td colspan="2"></td>
-          <% if province.gst > 0 %>
+        <% if province.gst.present? && province.gst > 0 %>
           <td>GST: </td>
-            <td><%= number_to_currency(subtotal * province.gst) %></td>
-          <% end %>
-          <% if province.hst > 0 %>
-            <td>HST: </td><td><%= number_to_currency(subtotal * province.hst) %></td>
-          <% end %>
-          <% if province.pst > 0 %>
-            <td>PST: </td><td><%= number_to_currency(subtotal * province.pst) %></td>
-          <% end %>
+          <td><%= number_to_currency(subtotal * province.gst) %></td>
+        <% end %>
+      </tr>
+
+      <tr>
+        <td colspan="2"></td>
+        <% if province.hst.present? && province.hst > 0 %>
+          <td>HST: </td>
+          <td><%= number_to_currency(subtotal * province.hst) %></td>
+        <% end %>
+      </tr>
+
+      <tr>
+        <td colspan="2"></td>
+        <% if province.pst.present? && province.pst > 0 %>
+          <td>PST: </td>
+          <td><%= number_to_currency(subtotal * province.pst) %></td>
+        <% end %>
       </tr>
       <tr>
         <td colspan="2"></td>
         <td>Total:</td>
-        <td><%= number_to_currency(subtotal + (subtotal * province.gst) + (subtotal * province.hst) + (subtotal * province.pst)) %></td>
+        <td>
+          <% total = subtotal %>
+          <% total += subtotal * province.gst if province.gst.present? && province.gst > 0 %>
+          <% total += subtotal * province.hst if province.hst.present? && province.hst > 0 %>
+          <% total += subtotal * province.pst if province.pst.present? && province.pst > 0 %>
+          <%= number_to_currency(total) %>
+        </td>
       </tr>
+      <td colspan="2"></td>
+      <td><%= button_to "Order", user_orders_path(current_user), method: :post %></td>
+      <td></td>
     <% end %>
   </tfoot>
 </table>
