@@ -8,6 +8,10 @@
     <strong>On Sale!</strong>
   <% end %>
 </p>
+<p>
+  <%# price %>
+  Price: <%= number_to_currency @product.price %>
+</p>
 
 <%# if product has category %>
 <% if @product.categories.any? %>
@@ -18,6 +22,10 @@
     <% end %>
   </p>
 <% end %>
+
+  <%= form_tag add_to_cart_path(@product), method: :post do %>
+    <%= submit_tag 'Add to Cart' %>
+  <% end %>
 
 <div>
   <% if current_user && current_user.admin? %>
