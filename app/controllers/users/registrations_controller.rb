@@ -49,6 +49,12 @@ module Users
 
     # If you have extra params to permit, append them to the sanitizer.
     def configure_sign_up_params
+      devise_parameter_sanitizer.permit(:sign_up,
+                                        keys: %i[email password password_confirmation name
+                                                 address_line_one address_line_two province_id])
+    end
+
+    def configure_permitted_parameters
       devise_parameter_sanitizer.permit(:sign_up, keys: [:province_id])
     end
 
