@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'cart/show'
   resources :contact_pages
   resources :categories
   resources :models
@@ -18,4 +19,10 @@ Rails.application.routes.draw do
 
   get '/about', to: 'pages#about'
   get '/contact', to: 'pages#contact'
+  post '/cart/add/:product_id', to: 'cart#add', as: 'add_to_cart'
+  get '/cart', to: 'cart#show', as: 'cart'
+
+  post '/cart/decrease/:product_id', to: 'cart#decrease_quantity', as: 'decrease_quantity'
+  post '/cart/increase/:product_id', to: 'cart#increase_quantity', as: 'increase_quantity'
+  delete '/cart/remove/:product_id', to: 'cart#remove', as: 'remove_from_cart'
 end

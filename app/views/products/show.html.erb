@@ -19,6 +19,10 @@
   </p>
 <% end %>
 
+  <%= form_tag add_to_cart_path(@product), method: :post do %>
+    <%= submit_tag 'Add to Cart' %>
+  <% end %>
+
 <div>
   <% if current_user && current_user.admin? %>
     <%= link_to "Edit this product", edit_product_path(@product) %>
