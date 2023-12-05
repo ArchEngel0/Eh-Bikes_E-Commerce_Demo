@@ -25,4 +25,6 @@ Rails.application.routes.draw do
   post '/cart/decrease/:product_id', to: 'cart#decrease_quantity', as: 'decrease_quantity'
   post '/cart/increase/:product_id', to: 'cart#increase_quantity', as: 'increase_quantity'
   delete '/cart/remove/:product_id', to: 'cart#remove', as: 'remove_from_cart'
+
+  get 'checkout/index'
 end
