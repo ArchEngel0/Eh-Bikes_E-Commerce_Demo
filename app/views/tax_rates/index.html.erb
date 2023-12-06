@@ -1,0 +1,27 @@
+<h1>Tax Rates</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Province</th>
+      <th>GST</th>
+      <th>HST</th>
+      <th>PST</th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= form_tag tax_rates_path, method: :patch do %>
+      <% @provinces.each do |province| %>
+        <tr>
+          <td><%= province.name %></td>
+          <td><%= text_field_tag "tax_rates[provinces_attributes][#{province.id}][gst]", province.gst %></td>
+          <td><%= text_field_tag "tax_rates[provinces_attributes][#{province.id}][hst]", province.hst %></td>
+          <td><%= text_field_tag "tax_rates[provinces_attributes][#{province.id}][pst]", province.pst %></td>
+        </tr>
+      <% end %>
+      <tr>
+        <td colspan="4"><%= submit_tag "Update Tax Rates" %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
