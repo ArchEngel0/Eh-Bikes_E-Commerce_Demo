@@ -56,8 +56,8 @@ module Users
 
     def configure_permitted_parameters
       devise_parameter_sanitizer.permit(:sign_up,
-                                        keys: %i[email password password_confirmation name address_line_one address_line_two province_id
-                                                 admin])
+                                        keys: %i[email password password_confirmation name
+                                                 address_line_one address_line_two province_id])
     end
 
     def build_resource(hash = {})
