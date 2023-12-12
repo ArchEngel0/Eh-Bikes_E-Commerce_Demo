@@ -1,7 +1,7 @@
 class CartController < ApplicationController
   def show
     @cart = session[:cart] || {}
-    puts "Cart: " + @cart.to_s; # debug
+    # puts "Cart: " + @cart.to_s; # debug
   end
 
   def add
