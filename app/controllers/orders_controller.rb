@@ -47,7 +47,7 @@ class OrdersController < ApplicationController
     price * (gst + hst + pst)
   end
 
-  def calculate_total(product, quantity, options)
+  def calculate_total(_product, quantity, options)
     price = options[:price]
     tax = calculate_tax(options)
     total = price + tax
